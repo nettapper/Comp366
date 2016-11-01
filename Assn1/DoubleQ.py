@@ -27,15 +27,15 @@ def episode(G, eps):
         (reward, currentState) = blackjack.sample(currentState, epsGreedyPolicy(currentState, eps))
         G += reward
         if(not currentState): # if currentState is false (we know its the end of the episode)
-
             return G
 
 def epsGreedyPolicy(currentState, eps):  # given a state this will return an action
-    if(np.random.random() > eps):
-        combined = Q1[currentState] + Q2[currentState]
-        return ....
+    if(np.random.random() < eps):  # random should return floats b/w [0,1)
+        # 0 is to sick and 1 is to hit
+        # randomly choose one of those actions
+        return np.random.randint(0,2)  # will return ints between [0,2) (explore)
     else:
-        return alwaysGreedyPolicy(currentState)
+        return alwaysGreedyPolicy(currentState)  # (greedy)
 
 
 def alwaysGreedyPolicy(currentState):  # given a state this will return an action
