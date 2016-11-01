@@ -64,15 +64,14 @@ def alwaysGreedyPolicy(currentState):  # given a state this will return an actio
     return np.argmax(Q1[currentState] + Q2[currentState])
 
 
+# TODO implement printPolicy
 def run():
     alpha = 0.001
     eps = 1
     numTrainingEpisodes = 400000
     numEvaluationEpisodes = 400000
     learn(alpha, eps, numTrainingEpisodes)
-    print(Q1)
     print("Average:", evaluate(numEvaluationEpisodes))
 
 
 run()
-
