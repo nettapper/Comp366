@@ -10,8 +10,7 @@ def learn(alpha, eps, numTrainingEpisodes):
     gamma = 1
     returnSum = 0.0
     for episodeNum in range(numTrainingEpisodes):
-        G = 0 #TODO get return from leanrnEpisode
-        learnEpisode(alpha, eps, gamma)
+        G = learnEpisode(alpha, eps, gamma)
         # Fill in Q1 and Q2
         # print("Episode: ", episodeNum, "Return: ", G)
         returnSum = returnSum + G
@@ -21,9 +20,11 @@ def learn(alpha, eps, numTrainingEpisodes):
 
 def learnEpisode(alpha, eps, gamma):
         currentState = blackjack.init() # returns the initial state
+        episodeReturn = 0
         while(True):  # repeate for each step of the episode
             action = epsGreedyPolicy(currentState, eps)
             (reward, nextState) = blackjack.sample(currentState, action)
+            episodeReturn += reward
             if(nextState):
                 if(np.random.randint(0,2)):  # will return ints between [0,2)
                     Q1[currentState, action] = Q1[currentState, action] + alpha * ( reward + gamma * Q2[nextState, np.argmax(Q1[nextState])] - Q1[currentState, action])
@@ -35,7 +36,7 @@ def learnEpisode(alpha, eps, gamma):
                     Q1[currentState, action] = Q1[currentState, action] + alpha * ( reward - Q1[currentState, action])
                 else:
                     Q2[currentState, action] = Q2[currentState, action] + alpha * ( reward - Q2[currentState, action])
-                return # if nextState is false (we know its the end of the episode)
+                return episodeReturn # if nextState is false (we know its the end of the episode)
 
 
 def evaluate(numEvaluationEpisodes):
@@ -74,7 +75,7 @@ def alwaysGreedyPolicy(currentState):  # given a state this will return an actio
 
 def run():
     alpha = 0.001
-    eps = 1
+    eps = 0.75
     numTrainingEpisodes = 1000000
     numEvaluationEpisodes = 1000000
     learn(alpha, eps, numTrainingEpisodes)
