@@ -16,7 +16,7 @@ def learn(alpha, eps, numTrainingEpisodes):
         # print("Episode: ", episodeNum, "Return: ", G)
         returnSum = returnSum + G
         if episodeNum % 10000 == 0 and episodeNum != 0:
-            print("Average return so far: ", returnSum/episodeNum)
+            print("Average return so far (", (episodeNum / 1000), "k) : ", returnSum/episodeNum)
 
 
 def learnEpisode(alpha, eps, gamma):
