@@ -7,8 +7,8 @@ def run():
     eps = 0
     epsStepSize = 0.1
     alphaStepSize = 0.1
-    numTrainingEpisodes = 1000
-    numEvaluationEpisodes = 1000
+    numTrainingEpisodes = 100000
+    numEvaluationEpisodes = 100000
 
     while(eps <= 1):
         alpha = 0.001
