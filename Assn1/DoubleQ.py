@@ -41,7 +41,6 @@ def learnEpisode(alpha, eps, gamma):
 def evaluate(numEvaluationEpisodes):
     if(numEvaluationEpisodes > 0):
         returnSum = 0.0
-        alpha = 0.001
         eps = 0  # 0 is fully greedy, where as 1 is fully exploratory
         for episodeNum in range(numEvaluationEpisodes):
             G = evaluateEpisode(0, eps)
@@ -58,6 +57,7 @@ def evaluateEpisode(G, eps):
         G += reward
         if(not currentState): # if currentState is false (we know its the end of the episode)
             return G
+
 
 def epsGreedyPolicy(currentState, eps):  # given a state this will return an action
     if(np.random.random() < eps):  # random should return floats b/w [0,1)
@@ -76,11 +76,12 @@ def alwaysGreedyPolicy(currentState):  # given a state this will return an actio
 def run():
     alpha = 0.001
     eps = 1
-    numTrainingEpisodes = 400000
-    numEvaluationEpisodes = 400000
+    numTrainingEpisodes = 1000000
+    numEvaluationEpisodes = 1000000
     learn(alpha, eps, numTrainingEpisodes)
     print("Starting the Evaluation.")
     print("Evaluation Average:", evaluate(numEvaluationEpisodes))
+    blackjack.printPolicy(alwaysGreedyPolicy)
 
 
 run()
