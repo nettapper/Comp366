@@ -2,8 +2,8 @@ import blackjack
 from pylab import *
 
 
-Q1 = np.zeros((181,2)) # NumPy array of correct size
-Q2 = np.zeros((181,2)) # NumPy array of correct size
+Q1 = 0.00001 * np.random.random((181, 2)) # NumPy array of correct size w/ random values
+Q2 = 0.00001 * np.random.random((181, 2)) # NumPy array of correct size w/ random values
 
 
 def learn(alpha, eps, numTrainingEpisodes):
@@ -72,7 +72,6 @@ def alwaysGreedyPolicy(currentState):  # given a state this will return an actio
     return np.argmax(Q1[currentState] + Q2[currentState])
 
 
-# TODO implement printPolicy
 def run():
     alpha = 0.001
     eps = 1
