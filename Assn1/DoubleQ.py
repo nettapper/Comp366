@@ -79,6 +79,7 @@ def run():
     numTrainingEpisodes = 400000
     numEvaluationEpisodes = 400000
     learn(alpha, eps, numTrainingEpisodes)
+    print("Starting the Evaluation.")
     print("Evaluation Average:", evaluate(numEvaluationEpisodes))
 
 
