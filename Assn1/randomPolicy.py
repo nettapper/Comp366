@@ -1,14 +1,14 @@
 import blackjack
 import numpy as np
 
-def run(numEpisodes):
+def run(numEvaluationEpisodes):
     returnSum = 0.0
-    for episodeNum in range(numEpisodes):
+    for episodeNum in range(numEvaluationEpisodes):
         discount = 1
         G = episode(0, discount)
         print("Episode: ", episodeNum, "Return: ", G)
         returnSum = returnSum + G
-    return returnSum/numEpisodes
+    return returnSum/numEvaluationEpisodes
 
 
 def episode(G, discount):

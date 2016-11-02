@@ -8,8 +8,16 @@ Q2 = np.zeros((181,2)) # NumPy array of correct size
 
 def learn(alpha, eps, numTrainingEpisodes):
     gamma = 1
-    for numTrainingEpisodes in range(numTrainingEpisodes):
+    returnSum = 0.0
+    for episodeNum in range(numTrainingEpisodes):
+        G = 0 #TODO get return from leanrnEpisode
         learnEpisode(alpha, eps, gamma)
+        # Fill in Q1 and Q2
+        # print("Episode: ", episodeNum, "Return: ", G)
+        returnSum = returnSum + G
+        if episodeNum % 10000 == 0 and episodeNum != 0:
+            print("Average return so far: ", returnSum/episodeNum)
+
 
 def learnEpisode(alpha, eps, gamma):
         currentState = blackjack.init() # returns the initial state
@@ -36,14 +44,14 @@ def evaluate(numEvaluationEpisodes):
         alpha = 0.001
         eps = 0  # 0 is fully greedy, where as 1 is fully exploratory
         for episodeNum in range(numEvaluationEpisodes):
-            G = episode(0, eps)
+            G = evaluateEpisode(0, eps)
             returnSum = returnSum + G
         return returnSum/numEvaluationEpisodes
     else:
         return "Please call with a number of episodes greater than 0"
 
 
-def episode(G, eps):
+def evaluateEpisode(G, eps):
     currentState = blackjack.init() # returns the initial state
     while(True):  # repeate for each step
         (reward, currentState) = blackjack.sample(currentState, epsGreedyPolicy(currentState, eps))
@@ -71,7 +79,7 @@ def run():
     numTrainingEpisodes = 400000
     numEvaluationEpisodes = 400000
     learn(alpha, eps, numTrainingEpisodes)
-    print("Average:", evaluate(numEvaluationEpisodes))
+    print("Evaluation Average:", evaluate(numEvaluationEpisodes))
 
 
 run()
