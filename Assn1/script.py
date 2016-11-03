@@ -4,7 +4,7 @@ import numpy as np
 def run():
     outfile = open("output.txt", "w")
 
-    eps = 0
+    eps = 0.8
     epsStepSize = 0.1
     alphaStepSize = 0.1
     numTrainingEpisodes = 1000000
