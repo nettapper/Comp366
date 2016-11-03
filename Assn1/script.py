@@ -7,8 +7,8 @@ def run():
     eps = 1
     epsStepSize = 0.1
     alphaStepSize = 0.1
-    numTrainingEpisodes = 1000000
-    numEvaluationEpisodes = 10000000
+    numTrainingEpisodes = 1000
+    numEvaluationEpisodes = 1000
 
     print("Starting script with {:,} traing episodes and {:,} evaulation episodes".format(numTrainingEpisodes, numEvaluationEpisodes))
 
