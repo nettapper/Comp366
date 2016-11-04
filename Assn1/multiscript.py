@@ -2,8 +2,8 @@ import numpy as np
 import threading
 
 outfile = open("multioutput.txt", "w")
-numEvaluationEpisodes = 1000
-numTrainingEpisodes = 1000
+numEvaluationEpisodes = 1000000
+numTrainingEpisodes = 10000000
 
 class myThread(threading.Thread):
     def __init__(self, threadID, eps, alpha):
@@ -169,24 +169,27 @@ class myThread(threading.Thread):
 
 def main():
     threads = []
-    eps = 0
+    eps = .5
     epsStepSize = 0.1
-    alphaStepSize = 0.1
+    alphaStepSize = 0.000033
     counter = 0
     while(eps <= 1):
-        alpha = 0.001
-        while (alpha < 2):
+        alpha = 0.00001
+        while (alpha < 0.001):
            thread = myThread(counter, eps, alpha)
            thread.start()
            threads.append(thread)
            counter += 1
-           alpha = round(alpha + alphaStepSize, 5)
-        eps = round(eps + epsStepSize, 5)
+           alpha = round(alpha + alphaStepSize, 8)
+        eps = round(eps + epsStepSize, 8)
+
+    print("Starting script with {:,} traing episodes and {:,} evaulation episodes".format(numTrainingEpisodes, numEvaluationEpisodes))
+    print("Threads created: ", counter)
 
     for t in threads:
         t.join()
 
-    print("Threads created: ", counter)
+    print("All threads finished, Exiting...")
 
 
 if __name__ == "__main__":
