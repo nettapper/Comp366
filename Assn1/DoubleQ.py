@@ -80,9 +80,9 @@ def run():
     numTrainingEpisodes = 1000000
     numEvaluationEpisodes = 10000000
     learn(alpha, eps, numTrainingEpisodes)
-    print("Starting the Evaluation.")
-    print("Evaluation Average:", evaluate(numEvaluationEpisodes))
-    blackjack.printPolicyToFile(alwaysGreedyPolicy)
+    # print("Starting the Evaluation.")
+    # print("Evaluation Average:", evaluate(numEvaluationEpisodes))
+    # blackjack.printPolicyToFile(alwaysGreedyPolicy)
 
 
 if __name__ == "__main__":
