@@ -75,14 +75,15 @@ def alwaysGreedyPolicy(currentState):  # given a state this will return an actio
 
 
 def run():
-    alpha = 0.001
-    eps = 0.75
+    alpha = 0.000538
+    eps = 1
     numTrainingEpisodes = 1000000
-    numEvaluationEpisodes = 1000000
+    numEvaluationEpisodes = 10000000
     learn(alpha, eps, numTrainingEpisodes)
     print("Starting the Evaluation.")
     print("Evaluation Average:", evaluate(numEvaluationEpisodes))
     blackjack.printPolicy(alwaysGreedyPolicy)
+
 
 if __name__ == "__main__":
     run()
