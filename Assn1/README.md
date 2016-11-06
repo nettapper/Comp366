@@ -1,6 +1,7 @@
 # Assn 1
 
 ## Project Directory
+```
 /Comp366/Assn1/
 ├── DoubleQ.py  -- Part 2 of the assn
 ├── README.md
@@ -29,6 +30,7 @@
 └── script.py  -- Single threaded running of DoubleQ
 
 3 directories, 22 files
+```
 
 ## What we did to find the best return
 1. We ran 100k episodes to test out our scripts
