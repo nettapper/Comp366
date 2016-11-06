@@ -1,6 +1,7 @@
 import blackjack
 import numpy as np
 
+
 def run(numEvaluationEpisodes):
     returnSum = 0.0
     for episodeNum in range(numEvaluationEpisodes):
