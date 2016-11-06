@@ -45,8 +45,8 @@
 
 
 ## Graphs
-![averageVsAlphaChart](/doc/averageVsAlphaChart.png?raw=true "Alpha")
-![averageVsAlphaMultiChart](/doc/averageVsAlphaMultiChart?raw=true "Alpha Multi")
-![averageVsEpsChart](/doc/averageVsEpsChart?raw=true "Eps")
-![averageVsEpsMultiChart](/doc/averageVsEpsMultiChart?raw=true "Eps Multi")
+![averageVsAlphaChart](/Assn1/doc/averageVsAlphaChart.png?raw=true "Alpha")
+![averageVsAlphaMultiChart](/Assn1/doc/averageVsAlphaMultiChart?raw=true "Alpha Multi")
+![averageVsEpsChart](/Assn1/doc/averageVsEpsChart?raw=true "Eps")
+![averageVsEpsMultiChart](/Assn1/doc/averageVsEpsMultiChart?raw=true "Eps Multi")
 
