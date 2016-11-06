@@ -15,7 +15,7 @@ def card():
 
 def encode():
     return 1 + (90 if usableAce else 0) + 9*(dealerCard-1) + (playerSum-12)
-
+    
 def decode(state):
     global playerSum, dealerCard, usableAce
     if state==0: return
@@ -100,4 +100,10 @@ def printPolicy(policy):
                 print("S" if policy(encode())==0 else "H", end=' ')
             print(playerSum)
         for dealerCard in range(1,11): print(dealerCard, end=' ')
-        print()
+        print() 
+
+def printPolicyToFile(policy):
+    with open('policy.txt', 'w') as fp:
+        sys.stdout = fp
+        printPolicy(policy)
+        sys.stdout = sys.__stdout__
