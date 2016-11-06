@@ -27,6 +27,3 @@ def chooseActionFromState(S): # aka the policy
     # 0 is to sick and 1 is to hit
     # randomly choose one of those actions
     return np.random.randint(0,2)  # will return ints between [0,2)
-
-
-print("Average: ", run(10000))

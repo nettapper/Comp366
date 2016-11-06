@@ -82,7 +82,7 @@ def run():
     learn(alpha, eps, numTrainingEpisodes)
     print("Starting the Evaluation.")
     print("Evaluation Average:", evaluate(numEvaluationEpisodes))
-    blackjack.printPolicy(alwaysGreedyPolicy)
+    blackjack.printPolicyToFile(alwaysGreedyPolicy)
 
 
 if __name__ == "__main__":
