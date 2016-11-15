@@ -8,7 +8,7 @@ indices =   # initialize your list of tile indices here
 
 def f(in1,in2):
     # write your linear function approximator here (5 lines or so)
-    
+
 def learn(in1,in2,target):
     # write your gradient descent learning algorithm here (3 lines or so)
 
@@ -21,10 +21,10 @@ def test1():
         before = f(in1,in2)
         learn(in1,in2,target)
         after = f(in1,in2)
-        print('Example (', in1, ',', in2, ',', target, '):', end=' ') 
-        print('    f before learning: ', before, end=' ') 
+        print('Example (', in1, ',', in2, ',', target, '):', end=' ')
+        print('    f before learning: ', before, end=' ')
         print('    f after learning : ', after)
-    
+
 def targetFunction(in1,in2):
     return sin(in1-3.0) * cos(in2) + normal(0,0.1)
 
@@ -34,7 +34,7 @@ def train(numSteps):
         in2 = random() * 6.0
         target = targetFunction(in1,in2)
         learn(in1,in2,target)
-    
+
 def writeF(filename):
     fout = open(filename, 'w')
     steps = 50
@@ -44,7 +44,7 @@ def writeF(filename):
             fout.write(repr(target) + ' ')
         fout.write('\n')
     fout.close()
-        
+
 def MSE(sampleSize):
     totalSE = 0.0
     for i in range(sampleSize):
@@ -53,7 +53,7 @@ def MSE(sampleSize):
         error = targetFunction(in1,in2) - f(in1,in2)
         totalSE = totalSE + error * error
     print('The estimated MSE: ', (totalSE / sampleSize))
-    
+
 def test2():
     train(20)
     writeF('f20')
