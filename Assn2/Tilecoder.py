@@ -15,7 +15,7 @@ def tilecode(in1,in2,tileIndices):
     return tileIndices
 
 def linearize(x,y):
-    return x + (y * 11)
+    return int(x + (y * 11))
 
 
 def printTileCoderIndices(in1,in2):
