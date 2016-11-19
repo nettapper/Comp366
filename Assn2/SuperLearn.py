@@ -18,9 +18,9 @@ def f(in1, in2):
 
 
 def learn(in1, in2, target):
-    pass
-    # write your gradient descent learning algorithm here (3 lines or so)
-
+    tilecodesList = tilecode(in1, in2, tileIndices)
+    for tileCodeIndex in tilecodesList:
+        theta[tileCodeIndex] = theta[tileCodeIndex] + alpha * ( target - f(in1, in2) )  # phi_j(i) is always 1
 
 def test1():
    for in1, in2, target in \
