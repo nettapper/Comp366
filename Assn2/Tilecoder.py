@@ -1,6 +1,7 @@
 numTilings = 8
 
-def tilecode(in1,in2,tileIndices):
+
+def tilecode(in1, in2, tileIndices):
     for i in range(len(tileIndices)):
         topRightOfZerothTile = 0.6 + (((-0.6) / 8) * i)
         x = in1 // 0.6
@@ -11,20 +12,21 @@ def tilecode(in1,in2,tileIndices):
             x += 1
         if(mody > topRightOfZerothTile):
             y += 1
-        tileIndices[i] = linearize(x,y) + (121 * i)
+        tileIndices[i] = linearize(x, y) + (121 * i)
     return tileIndices
 
-def linearize(x,y):
+
+def linearize(x, y):
     return int(x + (y * 11))
 
 
-def printTileCoderIndices(in1,in2):
+def printTileCoderIndices(in1, in2):
     tileIndices = [-1]*numTilings
-    tilecode(in1,in2,tileIndices)
-    print('Tile indices for input (',in1,',',in2,') are : ', tileIndices)
+    tilecode(in1, in2, tileIndices)
+    print('Tile indices for input (', in1,',', in2,') are : ', tileIndices)
 
-printTileCoderIndices(0.1,0.1)
-printTileCoderIndices(4.0,2.0)
-printTileCoderIndices(5.99,5.99)
-printTileCoderIndices(4.0,2.1)
 
+printTileCoderIndices(0.1, 0.1)
+printTileCoderIndices(4.0, 2.0)
+printTileCoderIndices(5.99, 5.99)
+printTileCoderIndices(4.0, 2.1)
