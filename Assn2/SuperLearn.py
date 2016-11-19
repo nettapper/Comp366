@@ -10,8 +10,11 @@ tileIndices = [-1]*numTilings   # initialize your list of tile indices here
 
 
 def f(in1, in2):
-    pass
-    # write your linear function approximator here (5 lines or so)
+    tilecodesList = tilecode(in1, in2, tileIndices)
+    thetaSum = 0
+    for tileCodeIndex in tilecodesList:
+        thetaSum += theta[tileCodeIndex]
+    return thetaSum
 
 
 def learn(in1, in2, target):
