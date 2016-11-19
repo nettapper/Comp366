@@ -1,18 +1,21 @@
+import numpy as np
 from pylab import zeros, sin, cos, normal, random
 from Tilecoder import numTilings, tilecode
 
 
-n =    # initialize the total number of tiles across all tilings here
-theta =     # initialize weights appropriately here
-alpha =     # initialize step size parameter appropriately here
-tileIndices =   # initialize your list of tile indices here
+n           = 968               # initialize the total number of tiles across all tilings here
+theta       = np.zeros(n)       # initialize weights appropriately here
+alpha       = 0.1 / numTilings  # initialize step size parameter appropriately here
+tileIndices = [-1]*numTilings   # initialize your list of tile indices here
 
 
 def f(in1, in2):
+    pass
     # write your linear function approximator here (5 lines or so)
 
 
 def learn(in1, in2, target):
+    pass
     # write your gradient descent learning algorithm here (3 lines or so)
 
 
