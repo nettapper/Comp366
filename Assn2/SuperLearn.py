@@ -19,8 +19,9 @@ def f(in1, in2):
 
 def learn(in1, in2, target):
     tilecodesList = tilecode(in1, in2, tileIndices)
+    thetaSum = f(in1, in2)
     for tileCodeIndex in tilecodesList:
-        theta[tileCodeIndex] = theta[tileCodeIndex] + alpha * ( target - f(in1, in2) )  # phi_j(i) is always 1
+        theta[tileCodeIndex] = theta[tileCodeIndex] + alpha * ( target - thetaSum )  # phi_j(i) is always 1
 
 def test1():
    for in1, in2, target in \
