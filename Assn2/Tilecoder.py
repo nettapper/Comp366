@@ -6,11 +6,11 @@ def tilecode(in1, in2, tileIndices):
         topRightOfZerothTile = 0.6 + (((-0.6) / 8) * i)
         x = in1 // 0.6
         y = in2 // 0.6
-        modx = in1 % 0.6
-        mody = in2 % 0.6
-        if(modx > topRightOfZerothTile):
+        modx = round(in1 % 0.6, 6)
+        mody = round(in2 % 0.6, 6)
+        if(modx >= topRightOfZerothTile):
             x += 1
-        if(mody > topRightOfZerothTile):
+        if(mody >= topRightOfZerothTile):
             y += 1
         tileIndices[i] = linearize(x, y) + (121 * i)
     return tileIndices
