@@ -10,6 +10,7 @@ else:
     normalizedMaxBound = maxBound
 widthOfTilingInTiles = 9
 widthOfTiling = (normalizedMaxBound - normalizedMinBound) / (widthOfTilingInTiles - 1)
+numTiles = widthOfTilingInTiles ** 2
 
 
 def tilecode(in1, in2, tileIndices):
@@ -26,7 +27,7 @@ def tilecode(in1, in2, tileIndices):
             x += 1
         if(mody >= topRightOfZerothTile):
             y += 1
-        tileIndices[i] = linearize(x, y) + (widthOfTilingInTiles**2 * i)
+        tileIndices[i] = linearize(x, y) + (numTiles * i)
     return tileIndices
 
 
