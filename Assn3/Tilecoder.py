@@ -40,7 +40,13 @@ def printTileCoderIndices(in1, in2):
     print('Tile indices for input (', in1, ',', in2, ') are : ', tileIndices)
 
 
-printTileCoderIndices(-0.6, -0.6)
-printTileCoderIndices(-0.39, -0.39)
+# printTileCoderIndices(-0.6, -0.6)
+# printTileCoderIndices(-0.39, -0.39)
 #printTileCoderIndices(5.99, 5.99)
 #printTileCoderIndices(4.0, 2.1)
+
+def test():
+    print(tilecode(-0.6, -0.6, [-1]*numTilings) == [0,81,162, 243])
+
+if __name__ == "__main__":
+    test()
