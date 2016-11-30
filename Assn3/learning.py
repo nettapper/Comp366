@@ -4,17 +4,17 @@ from pylab import *  # includes numpy
 
 numRuns = 1
 n = numTiles * 3
-Q1 = -0.001 * np.random.random((n, 3)) # NumPy array of correct size w/ random values
-Q2 = -0.001 * np.random.random((n, 3)) # NumPy array of correct size w/ random values
+Q1 = -0.001 * np.random.random((numTilings * numTiles, 3)) # NumPy array of correct size w/ random values
+Q2 = -0.001 * np.random.random((numTilings * numTiles, 3)) # NumPy array of correct size w/ random values
 
 
 def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
     gamma = 1
-    theta1 = -0.001*rand(n)
-    theta2 = -0.001*rand(n)
+    theta1 = -0.001*rand(n) # q1?
+    theta2 = -0.001*rand(n) # q2?
     returnSum = 0.0
     for episodeNum in range(numEpisodes):
-        G, step = learnEpisode(alpha, epsilon, gamma):
+        G, step = learnEpisode(alpha, epsilon, gamma)
         print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
         returnSum = returnSum + G
     print("Average return:", returnSum / numEpisodes)
@@ -22,7 +22,7 @@ def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
 
 
 def learnEpisode(alpha, eps, gamma):
-        in1, in2 = mountaincat.init()
+        in1, in2 = mountaincar.init()
         currentStates = tilecode(in1, in2, [-1]*numTilings) # returns the initial state
         episodeReturn = 0
         step = 0
@@ -35,20 +35,20 @@ def learnEpisode(alpha, eps, gamma):
                 nextIn1, nextIn2 = nextStatePosVel
                 nextStates = tilecode(nextIn1, nextIn2, [-1]*numTilings)
                 if(np.random.randint(0,2)):  # will return ints between [0,2)
-                    updateQ(Q1, Q2, currentStates, nextStates, action, alpha, gamma):
+                    updateQ(Q1, Q2, currentStates, nextStates, action, reward, alpha, gamma)
                 else:
-                    updateQ(Q2, Q1, currentStates, nextStates, action, alpha, gamma):
+                    updateQ(Q2, Q1, currentStates, nextStates, action, reward, alpha, gamma)
                 currentStates = nextStates
                 in1, in2 = nextIn1, nextIn2
             else: # next state is terminal state
                 if(np.random.randint(0,2)):  # will return ints between [0,2)
-                    updateQ(Q1, Q2, currentStates, nextStates, action, alpha, gamma):
+                    updateQ(Q1, Q2, currentStates, nextStates, action, reward, alpha, gamma)
                 else:
-                    updateQ(Q2, Q1, currentStates, nextStates, action, alpha, gamma):
+                    updateQ(Q2, Q1, currentStates, nextStates, action, reward, alpha, gamma)
                 return episodeReturn, step
 
 
-def updateQ(Qa, Qb, stateList, nextStateList, action, alpha, gamma):
+def updateQ(Qa, Qb, stateList, nextStateList, action, reward, alpha, gamma):
     if nextStateList:
         for state in stateList:
             for nextState in nextStateList:

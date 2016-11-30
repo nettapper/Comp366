@@ -1,7 +1,7 @@
 placesToRoundTo = 6
 numTilings = 4
-minBound = -0.6
-maxBound = -0.4
+minBound = -1.2
+maxBound = 0.5
 
 if(minBound < 0):
     normalizedMinBound = minBound + abs(minBound)
