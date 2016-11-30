@@ -2,12 +2,14 @@ placesToRoundTo = 6
 numTilings = 4
 minBound = -0.6
 maxBound = -0.4
+
 if(minBound < 0):
     normalizedMinBound = minBound + abs(minBound)
     normalizedMaxBound = maxBound + abs(minBound)
 else:
     normalizedMinBound = minBound
     normalizedMaxBound = maxBound
+
 widthOfTilingInTiles = 9
 widthOfTiling = (normalizedMaxBound - normalizedMinBound) / (widthOfTilingInTiles - 1)
 numTiles = widthOfTilingInTiles ** 2

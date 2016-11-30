@@ -4,15 +4,17 @@ from pylab import *  # includes numpy
 
 numRuns = 1
 n = numTiles * 3
+Q1 = -0.001 * np.random.random((n, 3)) # NumPy array of correct size w/ random values
+Q2 = -0.001 * np.random.random((n, 3)) # NumPy array of correct size w/ random values
+
 
 def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
     gamma = 1
-    step = 0
     theta1 = -0.001*rand(n)
     theta2 = -0.001*rand(n)
     returnSum = 0.0
     for episodeNum in range(numEpisodes):
-        G = learnEpisode(alpha, epsilon, gamma):
+        G, step = learnEpisode(alpha, epsilon, gamma):
         print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
         returnSum = returnSum + G
     print("Average return:", returnSum / numEpisodes)
@@ -20,37 +22,56 @@ def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
 
 
 def learnEpisode(alpha, eps, gamma):
-        currentState = mountaincar.init() # returns the initial state
+        in1, in2 = mountaincat.init()
+        currentStates = tilecode(in1, in2, [-1]*numTilings) # returns the initial state
         episodeReturn = 0
-        while(True):  # repeat for each step of the episode
-            action = epsGreedyPolicy(currentState, eps)
-            (reward, nextState) = mountaincar.sample(currentState, action)
+        step = 0
+        while(True): # continue until we reach terminal state (None)
+            action = epsGreedyPolicy(currentStates, eps)
+            reward, nextStatePosVel = mountaincar.sample((in1, in2), action)
             episodeReturn += reward
-            if(nextState):
+            step += 1
+            if nextStatePosVel:
+                nextIn1, nextIn2 = nextStatePosVel
+                nextStates = tilecode(nextIn1, nextIn2, [-1]*numTilings)
                 if(np.random.randint(0,2)):  # will return ints between [0,2)
-                    Q1[currentState, action] = Q1[currentState, action] + alpha * ( reward + gamma * Q2[nextState, np.argmax(Q1[nextState])] - Q1[currentState, action])
+                    updateQ(Q1, Q2, currentStates, nextStates, action, alpha, gamma):
                 else:
-                    Q2[currentState, action] = Q2[currentState, action] + alpha * ( reward + gamma * Q1[nextState, np.argmax(Q2[nextState])] - Q2[currentState, action])
-                currentState = nextState
-            else: # we know its the terminal state so the 'next rewards' simplify to 0 and can be ommited
+                    updateQ(Q2, Q1, currentStates, nextStates, action, alpha, gamma):
+                currentStates = nextStates
+                in1, in2 = nextIn1, nextIn2
+            else: # next state is terminal state
                 if(np.random.randint(0,2)):  # will return ints between [0,2)
-                    Q1[currentState, action] = Q1[currentState, action] + alpha * ( reward - Q1[currentState, action])
+                    updateQ(Q1, Q2, currentStates, nextStates, action, alpha, gamma):
                 else:
-                    Q2[currentState, action] = Q2[currentState, action] + alpha * ( reward - Q2[currentState, action])
-                return episodeReturn # if nextState is false (we know its the end of the episode)
+                    updateQ(Q2, Q1, currentStates, nextStates, action, alpha, gamma):
+                return episodeReturn, step
 
 
-def epsGreedyPolicy(currentState, eps):  # given a state this will return an action
+def updateQ(Qa, Qb, stateList, nextStateList, action, alpha, gamma):
+    if nextStateList:
+        for state in stateList:
+            for nextState in nextStateList:
+                Qa[state, action] = Qa[state, action] + alpha * ( reward + gamma * Qb[nextState, np.argmax(Qa[nextState])] - Qa[state, action])
+    else:
+        for state in stateList:
+            Qa[state, action] = Qa[state, action] + alpha * ( reward - Qa[state, action])
+
+
+def epsGreedyPolicy(currentStates, eps):  # given a state this will return an action
     if(np.random.random() < eps):  # random should return floats b/w [0,1)
-        # 0 is to sick and 1 is to hit
+        # can be either 0, 1, 2 or decelerate, coast, accelerate
         # randomly choose one of those actions
         return np.random.randint(0,3)  # will return ints between [0,3) (explore)
     else:
-        return alwaysGreedyPolicy(currentState)  # (greedy)
+        return alwaysGreedyPolicy(currentStates)  # (greedy)
 
 
-def alwaysGreedyPolicy(currentState):  # given a state this will return an action
-    return np.argmax(Q1[currentState] + Q2[currentState])
+def alwaysGreedyPolicy(currentStates):  # given a state this will return an action
+    sums = np.zeros(3)
+    for state in currentStates:
+        sums += Q1[state] + Q2[state]
+    return np.argmax(sums)
 
 
 #Additional code here to write average performance data to files for plotting...
