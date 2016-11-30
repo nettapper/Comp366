@@ -10,7 +10,7 @@ Q2 = -0.001 * np.random.random((numTilings * numTiles, 3)) # NumPy array of corr
 
 def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
     gamma = 1
-    theta1 = -0.001*rand(n) # q1?
+    theta1 = -0.001*rand(n) # q1?  defined as an array with 3 partitions [ 243 elem for action 1 | 243 for action 2 | 243 action 3 ]
     theta2 = -0.001*rand(n) # q2?
     returnSum = 0.0
     for episodeNum in range(numEpisodes):
