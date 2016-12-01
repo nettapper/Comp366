@@ -100,10 +100,12 @@ def writeF(theta1, theta2):
         fout.write('\n')
     fout.close()
 
-
-if __name__ == '__main__':
+def main():
     runSum = 0.0
     for run in range(numRuns):
         returnSum, theta1, theta2 = learn()
         runSum += returnSum
     print("Overall performance: Average sum of return per run:", runSum/numRuns)
+
+if __name__ == '__main__':
+    main()
