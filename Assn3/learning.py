@@ -45,7 +45,6 @@ def learnEpisode(alpha, eps, gamma, theta1, theta2):
                     updateTheta(theta2, theta1, currentStates, nextStates, action, reward, alpha, gamma)
                 return episodeReturn, step
 
-
 def updateThetaOld(thetaA, thetaB, stateList, nextStateList, action, reward, alpha, gamma):
     if nextStateList:
         for state in stateList:
@@ -54,7 +53,6 @@ def updateThetaOld(thetaA, thetaB, stateList, nextStateList, action, reward, alp
     else:
         for state in stateList:
             Qa[state, action] = Qa[state, action] + alpha * ( reward - Qa[state, action])
-
 
 def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha, gamma):
     nextStateSum = 0
@@ -67,6 +65,10 @@ def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha,
         index = state + (numTiles * action)
         thetaA[index] = thetaA[index] + alpha * ( reward + gamma * nextStateSum - thetaA[index] )
 
+        # semi gradient Sarsa on page 228 of texbbook
+        #############################################
+        # q = theta * phi = sum( theta_23, ...)  where 23 is from phi
+        # theta = theta + 2[ R + dicount * q(s') - q(s) ] gradient q
 
 def epsGreedyPolicy(currentStates, eps, theta1, theta2):  # given a state this will return an action
     if(np.random.random() < eps):  # random should return floats b/w [0,1)
@@ -75,7 +77,6 @@ def epsGreedyPolicy(currentStates, eps, theta1, theta2):  # given a state this w
         return np.random.randint(0,3)  # will return ints between [0,3) (explore)
     else:
         return alwaysGreedyPolicy(currentStates, theta1, theta2)  # (greedy)
-
 
 def alwaysGreedyPolicy(currentStates, theta1, theta2):  # given a state this will return an action
     action1, action2, action3 = 0, 0, 0
