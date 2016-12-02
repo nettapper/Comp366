@@ -6,7 +6,7 @@ numRuns = 1
 n = numTiles * 3
 
 
-def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
+def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=1000):
     gamma = 1
     theta1 = -0.001*rand(n) # q1?  defined as an array with 3 partitions [ 243 elem for action 1 | 243 for action 2 | 243 action 3 ]
     theta2 = -0.001*rand(n) # q2?
@@ -15,6 +15,7 @@ def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
         G, step = learnEpisode(alpha, epsilon, gamma, theta1, theta2)
         print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
         returnSum = returnSum + G
+    writeF(theta1, theta2)
     print("Average return:", returnSum / numEpisodes)
     return returnSum, theta1, theta2
 
@@ -50,7 +51,7 @@ def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha,
     nextQSum = 0
     if nextStateList:
         bestAction = alwaysGreedyPolicy(nextStateList, thetaA, thetaA)
-        nextQSum = calcQ(nextStateList, bestAction, thetaA)  # TODO thetaB or thetaA?
+        nextQSum = calcQ(nextStateList, bestAction, thetaB)
 
     for state in stateList:
         index = state + (numTiles * action)
@@ -61,7 +62,7 @@ def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha,
         # q = theta * phi = sum( theta_23, ...)  where 23 is from phi
         # theta = theta + 2[ R + dicount * q(s') - q(s) ] gradient q
 
-def calcQ(stateList, action, theta):  # TODO do we need to calc with both or one thetas?
+def calcQ(stateList, action, theta):
     qSum = 0
     for state in stateList:
         qSum += theta[state + (numTiles * action)]
@@ -83,7 +84,13 @@ def alwaysGreedyPolicy(currentStates, theta1, theta2):  # given a state this wil
         action3 += theta1[state + (numTiles * 2)] + theta2[state + (numTiles * 2)]
     return np.argmax([action1, action2, action3])
 
-
+def Qs(F, theta1, theta2):
+    action1, action2, action3 = 0, 0, 0
+    for state in F:
+        action1 += theta1[state] + theta2[state]
+        action2 += theta1[state + numTiles] + theta2[state + numTiles]
+        action3 += theta1[state + (numTiles * 2)] + theta2[state + (numTiles * 2)]
+    return [action1, action2, action3]
 #Additional code here to write average performance data to files for plotting...
 #You will first need to add an array in which to collect the data
 

@@ -28,7 +28,7 @@ widthOfXTiling = (normalizedXMaxBound - normalizedXMinBound) / (widthOfTilingInT
 widthOfYTiling = (normalizedYMaxBound - normalizedYMinBound) / (widthOfTilingInTiles - 1)
 
 
-def tilecode(inX, inY, tileIndices):
+def tilecode(inX, inY, tileIndices=[-1]*numTilings):
     # Normalize the inputs to 0
     if(xMinBound < 0):
         inX = inX + abs(xMinBound)
