@@ -45,15 +45,6 @@ def learnEpisode(alpha, eps, gamma, theta1, theta2):
                     updateTheta(theta2, theta1, currentStates, nextStates, action, reward, alpha, gamma)
                 return episodeReturn, step
 
-def updateThetaOld(thetaA, thetaB, stateList, nextStateList, action, reward, alpha, gamma):
-    if nextStateList:
-        for state in stateList:
-            for nextState in nextStateList:
-                Qa[state, action] = Qa[state, action] + alpha * ( reward + gamma * Qb[nextState , np.argmax(Qa[nextState])] - Qa[state, action])
-    else:
-        for state in stateList:
-            Qa[state, action] = Qa[state, action] + alpha * ( reward - Qa[state, action])
-
 def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha, gamma):
     qSum     = calcQ(stateList, action, thetaA)
     nextQSum = 0
