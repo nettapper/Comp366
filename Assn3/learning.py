@@ -55,20 +55,26 @@ def updateThetaOld(thetaA, thetaB, stateList, nextStateList, action, reward, alp
             Qa[state, action] = Qa[state, action] + alpha * ( reward - Qa[state, action])
 
 def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha, gamma):
-    nextStateSum = 0
+    qSum     = calcQ(stateList, action, thetaA)
+    nextQSum = 0
     if nextStateList:
         bestAction = alwaysGreedyPolicy(nextStateList, thetaA, thetaA)
-        for nextState in nextStateList:
-            nextStateSum += thetaB[nextState + (numTiles * bestAction)]
+        nextQSum = calcQ(nextStateList, bestAction, thetaA)  # TODO thetaB or thetaA?
 
     for state in stateList:
         index = state + (numTiles * action)
-        thetaA[index] = thetaA[index] + alpha * ( reward + gamma * nextStateSum - thetaA[index] )
+        thetaA[index] = thetaA[index] + alpha * ( reward + gamma * nextQSum - qSum )
 
         # semi gradient Sarsa on page 228 of texbbook
         #############################################
         # q = theta * phi = sum( theta_23, ...)  where 23 is from phi
         # theta = theta + 2[ R + dicount * q(s') - q(s) ] gradient q
+
+def calcQ(stateList, action, theta):  # TODO do we need to calc with both or one thetas?
+    qSum = 0
+    for state in stateList:
+        qSum += theta[state + (numTiles * action)]
+    return qSum
 
 def epsGreedyPolicy(currentStates, eps, theta1, theta2):  # given a state this will return an action
     if(np.random.random() < eps):  # random should return floats b/w [0,1)
