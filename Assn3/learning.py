@@ -13,10 +13,10 @@ def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=1000):
     returnSum = 0.0
     for episodeNum in range(numEpisodes):
         G, step = learnEpisode(alpha, epsilon, gamma, theta1, theta2)
-        print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
+        # print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
         returnSum = returnSum + G
     writeF(theta1, theta2)
-    print("Average return:", returnSum / numEpisodes)
+    # print("Average return:", returnSum / numEpisodes)
     return returnSum, theta1, theta2
 
 
@@ -110,7 +110,7 @@ def main():
     for run in range(numRuns):
         returnSum, theta1, theta2 = learn()
         runSum += returnSum
-    print("Overall performance: Average sum of return per run:", runSum/numRuns)
+    # print("Overall performance: Average sum of return per run:", runSum/numRuns)
 
 if __name__ == '__main__':
     main()
