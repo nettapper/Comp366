@@ -65,7 +65,8 @@ def printTileCoderIndices(in1, in2):
     # print('Tile indices for input (', in1, ',', in2, ') are : ', tileIndices)
 
 
-# printTileCoderIndices(-1.2, -0.07)
-# printTileCoderIndices(0.499, 0.0699)
-# printTileCoderIndices(5.99, 5.99)
-# printTileCoderIndices(4.0, 2.1)
+if __name__ == '__main__':
+    # printTileCoderIndices(-1.2, -0.07)
+    # printTileCoderIndices(0.499, 0.0699)
+    # printTileCoderIndices(5.99, 5.99)
+    # printTileCoderIndices(4.0, 2.1)

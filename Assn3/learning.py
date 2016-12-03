@@ -2,11 +2,12 @@ import mountaincar
 from Tilecoder import numTilings, numTiles, tilecode
 from pylab import *  # includes numpy
 
-numRuns = 1
+
+numRuns = 5
 n = numTiles * 3
 
 
-def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=1000):
+def learn(alpha=0.1 / numTilings, epsilon=0.0, numEpisodes=200):
     gamma = 1
     theta1 = -0.001*rand(n) # q1?  defined as an array with 3 partitions [ 243 elem for action 1 | 243 for action 2 | 243 action 3 ]
     theta2 = -0.001*rand(n) # q2?
@@ -83,13 +84,6 @@ def alwaysGreedyPolicy(currentStates, theta1, theta2):  # given a state this wil
     return np.argmax([action1, action2, action3])
 
 
-def Qs(F, theta1, theta2):
-    action1, action2, action3 = 0, 0, 0
-    for state in F:
-        action1 += theta1[state] + theta2[state]
-        action2 += theta1[state + numTiles] + theta2[state + numTiles]
-        action3 += theta1[state + (numTiles * 2)] + theta2[state + (numTiles * 2)]
-    return [action1, action2, action3]
 #Additional code here to write average performance data to files for plotting...
 #You will first need to add an array in which to collect the data
 
@@ -104,6 +98,15 @@ def writeF(theta1, theta2):
             fout.write(repr(height) + ' ')
         fout.write('\n')
     fout.close()
+
+
+def Qs(F, theta1, theta2):
+    action1, action2, action3 = 0, 0, 0
+    for state in F:
+        action1 += theta1[state] + theta2[state]
+        action2 += theta1[state + numTiles] + theta2[state + numTiles]
+        action3 += theta1[state + (numTiles * 2)] + theta2[state + (numTiles * 2)]
+    return [action1, action2, action3]
 
 
 def main():
