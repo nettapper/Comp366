@@ -15,7 +15,6 @@ def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=1000):
         G, step = learnEpisode(alpha, epsilon, gamma, theta1, theta2)
         # print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
         returnSum = returnSum + G
-    writeF(theta1, theta2)
     # print("Average return:", returnSum / numEpisodes)
     return returnSum, theta1, theta2
 
@@ -46,6 +45,7 @@ def learnEpisode(alpha, eps, gamma, theta1, theta2):
                     updateTheta(theta2, theta1, currentStates, nextStates, action, reward, alpha, gamma)
                 return episodeReturn, step
 
+
 def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha, gamma):
     qSum     = calcQ(stateList, action, thetaA)
     nextQSum = 0
@@ -57,16 +57,13 @@ def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha,
         index = state + (numTiles * action)
         thetaA[index] = thetaA[index] + alpha * ( reward + gamma * nextQSum - qSum )
 
-        # semi gradient Sarsa on page 228 of texbbook
-        #############################################
-        # q = theta * phi = sum( theta_23, ...)  where 23 is from phi
-        # theta = theta + 2[ R + dicount * q(s') - q(s) ] gradient q
 
 def calcQ(stateList, action, theta):
     qSum = 0
     for state in stateList:
         qSum += theta[state + (numTiles * action)]
     return qSum
+
 
 def epsGreedyPolicy(currentStates, eps, theta1, theta2):  # given a state this will return an action
     if(np.random.random() < eps):  # random should return floats b/w [0,1)
@@ -76,6 +73,7 @@ def epsGreedyPolicy(currentStates, eps, theta1, theta2):  # given a state this w
     else:
         return alwaysGreedyPolicy(currentStates, theta1, theta2)  # (greedy)
 
+
 def alwaysGreedyPolicy(currentStates, theta1, theta2):  # given a state this will return an action
     action1, action2, action3 = 0, 0, 0
     for state in currentStates:
@@ -83,6 +81,7 @@ def alwaysGreedyPolicy(currentStates, theta1, theta2):  # given a state this wil
         action2 += theta1[state + numTiles] + theta2[state + numTiles]
         action3 += theta1[state + (numTiles * 2)] + theta2[state + (numTiles * 2)]
     return np.argmax([action1, action2, action3])
+
 
 def Qs(F, theta1, theta2):
     action1, action2, action3 = 0, 0, 0
@@ -93,6 +92,7 @@ def Qs(F, theta1, theta2):
     return [action1, action2, action3]
 #Additional code here to write average performance data to files for plotting...
 #You will first need to add an array in which to collect the data
+
 
 def writeF(theta1, theta2):
     fout = open('value', 'w')
@@ -105,12 +105,14 @@ def writeF(theta1, theta2):
         fout.write('\n')
     fout.close()
 
+
 def main():
     runSum = 0.0
     for run in range(numRuns):
         returnSum, theta1, theta2 = learn()
         runSum += returnSum
     # print("Overall performance: Average sum of return per run:", runSum/numRuns)
+
 
 if __name__ == '__main__':
     main()

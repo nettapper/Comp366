@@ -69,11 +69,3 @@ def printTileCoderIndices(in1, in2):
 # printTileCoderIndices(0.499, 0.0699)
 # printTileCoderIndices(5.99, 5.99)
 # printTileCoderIndices(4.0, 2.1)
-
-def test():
-    pass
-    # print(tilecode(-0.6, -0.6, [-1]*numTilings) == [0,81,162, 243])  # testing the lower right boounds
-    # print(tilecode(-0.401, -0.401, [-1]*numTilings) == [70, 161, 242, 323])  # testing the uppper right boounds
-
-if __name__ == "__main__":
-    test()
