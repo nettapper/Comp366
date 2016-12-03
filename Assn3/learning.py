@@ -48,7 +48,7 @@ def learnEpisode(alpha, eps, gamma, theta1, theta2):
 
 
 def updateTheta(thetaA, thetaB, stateList, nextStateList, action, reward, alpha, gamma):
-    qSum     = calcQ(stateList, action, thetaA)
+    qSum = calcQ(stateList, action, thetaA)
     nextQSum = 0
     if nextStateList:
         bestAction = alwaysGreedyPolicy(nextStateList, thetaA, thetaA)

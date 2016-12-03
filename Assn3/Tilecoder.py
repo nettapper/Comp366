@@ -66,6 +66,7 @@ def printTileCoderIndices(in1, in2):
 
 
 if __name__ == '__main__':
+    pass
     # printTileCoderIndices(-1.2, -0.07)
     # printTileCoderIndices(0.499, 0.0699)
     # printTileCoderIndices(5.99, 5.99)
