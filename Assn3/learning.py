@@ -3,8 +3,10 @@ from Tilecoder import numTilings, numTiles, tilecode
 from pylab import *  # includes numpy
 
 
-numRuns = 5
+numRuns = 50
 n = numTiles * 3
+returnArray = np.zeros(200)
+stepArray = np.zeros(200)
 
 
 def learn(alpha=0.1 / numTilings, epsilon=0.0, numEpisodes=200):
@@ -16,6 +18,8 @@ def learn(alpha=0.1 / numTilings, epsilon=0.0, numEpisodes=200):
         G, step = learnEpisode(alpha, epsilon, gamma, theta1, theta2)
         # print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
         returnSum = returnSum + G
+        returnArray[episodeNum] += G
+        stepArray[episodeNum] += step
     # print("Average return:", returnSum / numEpisodes)
     return returnSum, theta1, theta2
 
@@ -109,11 +113,20 @@ def Qs(F, theta1, theta2):
     return [action1, action2, action3]
 
 
+def createCSV():
+    outfile = open("output.csv", "w")
+    outfile.write("EpisodeNum, Average Steps (Steps/numRuns), Average Return (Return/numRuns)\n")
+    for i in range(200):
+        outfile.write(str(i+1)+", "+str(stepArray[i] / numRuns)+", "+str(returnArray[i] / numRuns)+'\n')
+    outfile.close()
+
+
 def main():
     runSum = 0.0
     for run in range(numRuns):
         returnSum, theta1, theta2 = learn()
         runSum += returnSum
+    # createCSV()
     # print("Overall performance: Average sum of return per run:", runSum/numRuns)
 
 
